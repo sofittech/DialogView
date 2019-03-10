@@ -26,11 +26,11 @@ class ViewController: UIViewController {
     @IBAction func giveMeAdvancedDialogView(_ sender: UIButton) {
         let alert: DialogView = DialogView()
         
-        var attr: [String: AnyObject] = [String: AnyObject]();
-        attr[NSFontAttributeName] = UIFont.init(name: "HelveticaNeue-Light", size: 16)!
+        var attr: [NSAttributedString.Key:AnyObject] = [NSAttributedString.Key:AnyObject]();
+        attr[NSAttributedString.Key.font] = UIFont.init(name: "HelveticaNeue-Light", size: 16)!
         alert.setTitle("Dialog Title", attributes: attr)
         
-        attr[NSFontAttributeName] = UIFont.init(name: "HelveticaNeue-UltraLight", size: 14)!
+        attr[NSAttributedString.Key.font] = UIFont.init(name: "HelveticaNeue-UltraLight", size: 14)!
         alert.setMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a augue eget felis dictum ultrices ac a arcu.", attributes: attr)
         
         var button: DialogButton = alert.addButton("Accept", type: .accept)
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     
     // MARK: Alert actions
     
-    func myAlertAction(_ sender: DialogButton) {
+    @objc func myAlertAction(_ sender: DialogButton) {
         sender.dialogView.hide(true)
     }
     

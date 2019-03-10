@@ -24,7 +24,7 @@
   "source_files": "Pod/Classes/**/*",
   "dependencies": {
     "SnapKit": [
-      "~> 3.0"
+      "~> 4.2.0"
     ]
   }
 }

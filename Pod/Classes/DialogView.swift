@@ -49,11 +49,11 @@ open class DialogView : UIView {
     fileprivate var topImageView: UIImageView?
     
     fileprivate var title: String?
-    fileprivate var titleAttributes: [String: AnyObject]?
+    fileprivate var titleAttributes:  [NSAttributedString.Key: AnyObject]?
     fileprivate var titleLabel: UILabel?
     
     fileprivate var message: String?
-    fileprivate var messageAttributes: [String: AnyObject]?
+    fileprivate var messageAttributes: [NSAttributedString.Key: AnyObject]?
     fileprivate var messageLabel: UILabel?
     
     fileprivate var buttons: [DialogButton] = [DialogButton]()
@@ -253,7 +253,7 @@ open class DialogView : UIView {
         return topImageView!
     }
     
-    open func setTitle(_ titleString: String, attributes: [String: AnyObject] = [String: AnyObject]()) -> UILabel {
+    open func setTitle(_ titleString: String, attributes: [NSAttributedString.Key: AnyObject] = [NSAttributedString.Key:AnyObject]()) -> UILabel {
         self.title = titleString
         self.titleAttributes = attributes
         
@@ -261,7 +261,7 @@ open class DialogView : UIView {
         return self.titleLabel!
     }
     
-    open func setMessage(_ messageString: String, attributes: [String: AnyObject] = [String: AnyObject]()) -> UILabel {
+    open func setMessage(_ messageString: String, attributes:  [NSAttributedString.Key: AnyObject] = [NSAttributedString.Key: AnyObject]()) -> UILabel {
         self.message = messageString
         self.messageAttributes = attributes
         
@@ -300,12 +300,12 @@ open class DialogView : UIView {
         switch (type) {
         case .accept:
             textColor = UIColor.white
-            backgroundColor = UIColor.init(colorLiteralRed: (16 / 255), green: (182 / 255), blue: (113 / 255), alpha: 1)
+            backgroundColor = UIColor(red: (16 / 255), green: (182 / 255), blue: (113 / 255), alpha: 1)
             highlightedBackgroundColor = UIColor.lightGray
             break
         case .destruct:
             textColor = UIColor.white
-            backgroundColor = UIColor.init(colorLiteralRed: (195 / 255), green: (36 / 255), blue: (39 / 255), alpha: 1)
+            backgroundColor = UIColor(red: (195 / 255), green: (36 / 255), blue: (39 / 255), alpha: 1)
             highlightedBackgroundColor = UIColor.darkGray
             break
         case .done:
@@ -343,10 +343,10 @@ open class DialogView : UIView {
         return imgView
     }
     
-    fileprivate func label(_ text: String, textAttributes: [String: AnyObject]?, bold: Bool = false) -> UILabel {
+    fileprivate func label(_ text: String, textAttributes: [NSAttributedString.Key: AnyObject]?, bold: Bool = false) -> UILabel {
         let label: UILabel = UILabel()
         
-        var attributes: [String: AnyObject]? = textAttributes
+        var attributes:  [NSAttributedString.Key: AnyObject]? = textAttributes
         
         label.backgroundColor = UIColor.clear
         label.textAlignment = .center
@@ -354,16 +354,16 @@ open class DialogView : UIView {
         
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: text)
         if attributes == nil {
-            attributes = [String: AnyObject]()
+            attributes =  [NSAttributedString.Key: AnyObject]()
         }
-        if attributes![NSFontAttributeName] == nil {
-            attributes![NSFontAttributeName] = (bold ? UIFont.boldSystemFont(ofSize: 18) : UIFont.systemFont(ofSize: 14))
+        if attributes![NSAttributedString.Key.font] == nil {
+            attributes![NSAttributedString.Key.font] = (bold ? UIFont.boldSystemFont(ofSize: 18) : UIFont.systemFont(ofSize: 14))
         }
-        if attributes![NSForegroundColorAttributeName] == nil {
-            attributes![NSForegroundColorAttributeName] = UIColor.darkGray
+        if attributes![NSAttributedString.Key.foregroundColor] == nil {
+            attributes![NSAttributedString.Key.foregroundColor] = UIColor.darkGray
         }
-        if attributes![NSBackgroundColorAttributeName] == nil {
-            attributes![NSBackgroundColorAttributeName] = UIColor.clear
+        if attributes![NSAttributedString.Key.backgroundColor] == nil {
+            attributes![NSAttributedString.Key.backgroundColor] = UIColor.clear
         }
         attributedString.addAttributes(attributes!, range: NSRange.init(location: 0, length: text.characters.count))
         
@@ -393,7 +393,7 @@ open class DialogView : UIView {
     
     // MARK: Actions
     
-    func didTapCurtain(_ sender: UITapGestureRecognizer) {
+    @objc func didTapCurtain(_ sender: UITapGestureRecognizer) {
         if (self.tapOnCurtainClosesDialog) {
             self.hide(true)
         }
