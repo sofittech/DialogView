@@ -365,7 +365,7 @@ open class DialogView : UIView {
         if attributes![NSAttributedString.Key.backgroundColor] == nil {
             attributes![NSAttributedString.Key.backgroundColor] = UIColor.clear
         }
-        attributedString.addAttributes(attributes!, range: NSRange.init(location: 0, length: text.characters.count))
+        attributedString.addAttributes(attributes!, range: NSRange.init(location: 0, length: text.count))
         
         label.attributedText = attributedString
         
