@@ -344,31 +344,32 @@ open class DialogView : UIView {
     }
     
     fileprivate func label(_ text: String, textAttributes: [NSAttributedString.Key: AnyObject]?, bold: Bool = false) -> UILabel {
-        let label: UILabel = UILabel()
-        
-        var attributes:  [NSAttributedString.Key: AnyObject]? = textAttributes
-        
-        label.backgroundColor = UIColor.clear
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        
-        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: text)
-        if attributes == nil {
-            attributes =  [NSAttributedString.Key: AnyObject]()
+        var label: UILabel!
+        DispatchQueue.main.async {
+            label = UILabel()
+            var attributes:  [NSAttributedString.Key: AnyObject]? = textAttributes
+            
+            label.backgroundColor = UIColor.clear
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: text)
+            if attributes == nil {
+                attributes =  [NSAttributedString.Key: AnyObject]()
+            }
+            if attributes![NSAttributedString.Key.font] == nil {
+                attributes![NSAttributedString.Key.font] = (bold ? UIFont.boldSystemFont(ofSize: 18) : UIFont.systemFont(ofSize: 14))
+            }
+            if attributes![NSAttributedString.Key.foregroundColor] == nil {
+                attributes![NSAttributedString.Key.foregroundColor] = UIColor.darkGray
+            }
+            if attributes![NSAttributedString.Key.backgroundColor] == nil {
+                attributes![NSAttributedString.Key.backgroundColor] = UIColor.clear
+            }
+            attributedString.addAttributes(attributes!, range: NSRange.init(location: 0, length: text.count))
+            
+            label.attributedText = attributedString
         }
-        if attributes![NSAttributedString.Key.font] == nil {
-            attributes![NSAttributedString.Key.font] = (bold ? UIFont.boldSystemFont(ofSize: 18) : UIFont.systemFont(ofSize: 14))
-        }
-        if attributes![NSAttributedString.Key.foregroundColor] == nil {
-            attributes![NSAttributedString.Key.foregroundColor] = UIColor.darkGray
-        }
-        if attributes![NSAttributedString.Key.backgroundColor] == nil {
-            attributes![NSAttributedString.Key.backgroundColor] = UIColor.clear
-        }
-        attributedString.addAttributes(attributes!, range: NSRange.init(location: 0, length: text.count))
-        
-        label.attributedText = attributedString
-        
         return label
     }
     
