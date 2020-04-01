@@ -118,9 +118,10 @@ open class DialogView : UIView {
     fileprivate func createLabels(_ lastElement: inout UIView?) {
         // Title label
         if titleLabel != nil {
-            titleLabel = self.label(title!, textAttributes: titleAttributes, bold: true)
+            DispatchQueue.main.async {
+                titleLabel = self.label(title!, textAttributes: titleAttributes, bold: true)
+            }
             self.canvasView.addSubview(titleLabel!)
-            
             self.titleLabel?.preferredMaxLayoutWidth = (self.dialogViewWidth - (2 * self.innerDialogPadding))
             self.titleLabel!.snp_makeConstraints{ (make) -> Void in
                 make.top.equalTo(self.topImageView != nil ? self.topImageView!.snp_bottom : self.canvasView.snp_top).offset(self.innerDialogPadding)
@@ -256,16 +257,19 @@ open class DialogView : UIView {
     open func setTitle(_ titleString: String, attributes: [NSAttributedString.Key: AnyObject] = [NSAttributedString.Key:AnyObject]()) -> UILabel {
         self.title = titleString
         self.titleAttributes = attributes
+        DispatchQueue.main.async {
+            self.titleLabel = self.label(self.title!, textAttributes: self.titleAttributes, bold: true)
+        }
         
-        self.titleLabel = self.label(self.title!, textAttributes: self.titleAttributes, bold: true)
         return self.titleLabel!
     }
     
     open func setMessage(_ messageString: String, attributes:  [NSAttributedString.Key: AnyObject] = [NSAttributedString.Key: AnyObject]()) -> UILabel {
         self.message = messageString
         self.messageAttributes = attributes
-        
-        self.messageLabel = self.label(self.message!, textAttributes: self.messageAttributes, bold: false)
+        DispatchQueue.main.async {
+            self.messageLabel = self.label(self.message!, textAttributes: self.messageAttributes, bold: false)
+        }
         return self.messageLabel!
     }
     
