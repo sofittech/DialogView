@@ -50,6 +50,8 @@ class ViewController: UIViewController {
         button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Light", size: 14)!
         
         alert.showInController(self)
+        
+        
     }
     
     // MARK: Alert actions

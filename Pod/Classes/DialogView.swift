@@ -119,7 +119,7 @@ open class DialogView : UIView {
         // Title label
         if titleLabel != nil {
             DispatchQueue.main.async {
-                titleLabel = self.label(title!, textAttributes: titleAttributes, bold: true)
+                self.titleLabel = self.label(self.title!, textAttributes: self.titleAttributes, bold: true)
             }
             self.canvasView.addSubview(titleLabel!)
             self.titleLabel?.preferredMaxLayoutWidth = (self.dialogViewWidth - (2 * self.innerDialogPadding))
